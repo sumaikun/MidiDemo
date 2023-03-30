@@ -2,7 +2,7 @@ import React from "react";
 import { useDropzone } from "react-dropzone";
 import styles from "@/styles/Home.module.css";
 
-const MidiDropzone = () => {
+const MidiDropZone = () => {
   const onDrop = (acceptedFiles) => {
     console.log(acceptedFiles);
   };
@@ -34,4 +34,4 @@ const MidiDropzone = () => {
   );
 };
 
-export default MidiDropzone;
+export default MidiDropZone;

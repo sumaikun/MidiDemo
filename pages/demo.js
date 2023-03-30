@@ -114,7 +114,7 @@ const Demo = () => {
     return () => {
       clearInterval(intervalId);
     };
-  }, [startInterval, playerRef.current?.notes]);
+  }, [startInterval, playerRef.current?.notes, songTicks]);
 
   const play = async () => {
     console.log("Tone.context.state", Tone.context.state);
