@@ -2,9 +2,9 @@ import React from "react";
 import { useDropzone } from "react-dropzone";
 import styles from "@/styles/Home.module.css";
 
-const MidiDropZone = () => {
+const MidiDropZone = ({ onFile }) => {
   const onDrop = (acceptedFiles) => {
-    console.log(acceptedFiles);
+    onFile(acceptedFiles);
   };
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({

@@ -1,13 +1,41 @@
+import { useContext } from "react";
 import AppHeader from "./components/AppHeader";
 import Image from "next/image";
 import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 import MidiDropZone from "./components/MidiDropZone";
 import Link from "next/link";
+import MidiContext from "../contexts/MidiContext";
+import { useRouter } from "next/router";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+  const router = useRouter();
+  const { setArrayBuffer } = useContext(MidiContext);
+
+  const handleOnFile = (acceptedFiles) => {
+    if (acceptedFiles.length > 1) {
+      return alert("Please only upload 1 file at a time");
+    }
+    const file = acceptedFiles[0];
+
+    if (!file?.type.includes("midi")) {
+      return alert("Today i only accept midi files");
+    }
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const arrayBuffer = e.target.result;
+        console.log("MIDI ArrayBuffer:", arrayBuffer);
+        setArrayBuffer(arrayBuffer);
+        router.push("/demo");
+      };
+      reader.readAsArrayBuffer(file);
+    }
+  };
+
   return (
     <>
       <AppHeader description="Jvega Demo for get new Job " />
@@ -27,7 +55,7 @@ export default function Home() {
         </div>
 
         <div>
-          <MidiDropZone />
+          <MidiDropZone onFile={handleOnFile} />
         </div>
 
         <div className={`${styles.grid} ${styles.minGrid}`}>
